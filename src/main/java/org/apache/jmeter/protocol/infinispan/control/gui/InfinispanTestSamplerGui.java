@@ -5,15 +5,16 @@ import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 
 import org.apache.jmeter.config.gui.LoginConfigGui;
-import org.apache.jmeter.gui.TestElementMetadata;
+
 import org.apache.jmeter.gui.util.VerticalPanel;
 import org.apache.jmeter.samplers.gui.AbstractSamplerGui;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jmeter.util.JMeterUtils;
 import org.apache.jmeter.protocol.infinispan.config.gui.InfinispanConfigGui;
-import org.apache.jmeter.protocol.infinispan.sampler.InfinispanSampler;
 
-@TestElementMetadata(labelResource = "infinispan_testing_title")
+import org.apache.jmeter.protocol.infinispan.sampler.InfinispanSampler;
+import org.apache.jmeter.protocol.infinispan.util.InfinispanPluginUtils;
+
 public class InfinispanTestSamplerGui extends AbstractSamplerGui {
 
     /**
@@ -36,9 +37,20 @@ public class InfinispanTestSamplerGui extends AbstractSamplerGui {
         infinispanDefaultPanel.configure(element);
     }
 
+
     @Override
     public String getLabelResource() {
-        return "infinispan_testing_title";
+        return getClass().getCanonicalName();
+    }
+
+    @Override
+    public String getStaticLabel() {
+        return InfinispanPluginUtils.getResString("infinispan_panel_name");
+    }
+
+    @Override
+    public String getName() {
+        return super.getName() == null ? this.getStaticLabel() : super.getName();
     }
 
     @Override
